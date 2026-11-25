@@ -1,0 +1,29 @@
+{
+  "country": "IE",
+  "name": "Ireland",
+  "emergency": [],
+  "helplines": [
+    {
+      "id": "ie-samaritans",
+      "name": "Samaritans Ireland",
+      "categories": ["suicide", "crisis", "mental-health"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "phone", "value": "116123", "display": "116 123" }
+      ],
+      "availability": "24/7",
+      "cost": "free",
+      "website": "https://www.samaritans.org/ireland/",
+      "sources": [
+        {
+          "url": "https://www.samaritans.org/ireland/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "24 hours a day, 365 days a year. Call 116 123 for free"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    }
+  ]
+}

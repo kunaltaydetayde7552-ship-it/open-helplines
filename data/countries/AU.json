@@ -1,0 +1,32 @@
+{
+  "country": "AU",
+  "name": "Australia",
+  "emergency": [],
+  "helplines": [
+    {
+      "id": "au-lifeline",
+      "name": "Lifeline Australia",
+      "categories": ["suicide", "crisis", "mental-health"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "phone", "value": "131114", "display": "13 11 14" },
+        { "type": "sms", "value": "0477131114", "display": "0477 13 11 14" },
+        { "type": "chat", "value": "https://www.lifeline.org.au/" }
+      ],
+      "availability": "unknown",
+      "hours_note": "Website states chat is available 24/7; phone and text hours not yet confirmed from source.",
+      "cost": "unknown",
+      "website": "https://www.lifeline.org.au/",
+      "sources": [
+        {
+          "url": "https://www.lifeline.org.au/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "13 11 14 ... Chat with us Available 24/7 ... Text us 0477 13 11 14"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    }
+  ]
+}

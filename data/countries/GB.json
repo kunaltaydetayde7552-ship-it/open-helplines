@@ -1,0 +1,51 @@
+{
+  "country": "GB",
+  "name": "United Kingdom",
+  "emergency": [],
+  "helplines": [
+    {
+      "id": "gb-samaritans",
+      "name": "Samaritans",
+      "categories": ["suicide", "crisis", "mental-health"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "phone", "value": "116123", "display": "116 123" }
+      ],
+      "availability": "24/7",
+      "cost": "free",
+      "website": "https://www.samaritans.org/",
+      "sources": [
+        {
+          "url": "https://www.samaritans.org/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "24 hours a day, 365 days a year. Call 116 123 for free"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    },
+    {
+      "id": "gb-shout",
+      "name": "Shout",
+      "categories": ["crisis", "mental-health"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "sms", "value": "85258", "display": "Text 85258" }
+      ],
+      "availability": "24/7",
+      "cost": "unknown",
+      "website": "https://giveusashout.org/",
+      "sources": [
+        {
+          "url": "https://giveusashout.org/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "24/7 mental health text service | Shout 85258"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    }
+  ]
+}

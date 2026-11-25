@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Helplines: find a crisis line</title>
+<meta name="description" content="Free, open, source-cited directory of crisis and support helplines by country.">
+<style>
+  :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#5f5e58; --line:#e4e1d8; --accent:#1f5f4a; --warn-bg:#fff4e0; --warn:#7a4b00; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#151514; --fg:#ecebe6; --muted:#a3a29b; --line:#2e2d2a; --accent:#7fc8a9; --warn-bg:#2d2414; --warn:#f0c27a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:17px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 40rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 .25rem; letter-spacing: -.01em; }
+  p.lede { color: var(--muted); margin: 0 0 1.5rem; }
+  .danger { background: var(--warn-bg); color: var(--warn); border-radius: 10px; padding: .9rem 1rem; margin-bottom: 1.5rem; font-weight: 600; }
+  label { display:block; font-weight:600; margin-bottom:.4rem; }
+  select { width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:10px; background:var(--bg); color:var(--fg); }
+  .card { border:1px solid var(--line); border-radius:12px; padding:1rem 1.1rem; margin-top:1rem; }
+  .card h2 { font-size:1.1rem; margin:0 0 .35rem; }
+  .meta { color:var(--muted); font-size:.9rem; margin:.2rem 0 .7rem; }
+  .actions { display:flex; flex-wrap:wrap; gap:.5rem; }
+  .actions a { display:inline-block; padding:.6rem .9rem; border-radius:999px; background:var(--accent); color:var(--bg); text-decoration:none; font-weight:600; }
+  .actions a.secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .tag { display:inline-block; font-size:.78rem; padding:.05rem .5rem; border:1px solid var(--line); border-radius:999px; margin-right:.25rem; color:var(--muted); }
+  .empty { color:var(--muted); margin-top:1rem; }
+  footer { margin-top:2.5rem; color:var(--muted); font-size:.9rem; border-top:1px solid var(--line); padding-top:1rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Find a helpline</h1>
+  <p class="lede">Free crisis and support lines by country. Every number links to the source it came from.</p>
+  <div class="danger" id="danger">If you or someone else is in immediate danger, call your local emergency number now.</div>
+
+  <label for="country">Country</label>
+  <select id="country"><option>Loading…</option></select>
+  <div id="results" aria-live="polite"></div>
+
+  <footer>
+    Open data (CC0) maintained by volunteers and AI agents. Not an emergency service; numbers can change.
+    <a href="https://github.com/mpatel-playground/open-helplines/issues/new?template=report-wrong-info.yml">Report a wrong number</a> ·
+    <a href="https://github.com/mpatel-playground/open-helplines">Contribute</a> ·
+    <a href="v1/index.json">API</a>
+  </footer>
+</main>
+<script>
+const CATEGORY_LABELS = { "suicide":"Suicide", "mental-health":"Mental health", "crisis":"Crisis support",
+  "domestic-violence":"Domestic violence", "sexual-assault":"Sexual assault", "child-abuse":"Child abuse",
+  "youth":"Youth", "substance-use":"Substance use", "poison":"Poison", "eating-disorders":"Eating disorders",
+  "human-trafficking":"Human trafficking", "elder-abuse":"Elder abuse", "gambling":"Gambling",
+  "lgbtq":"LGBTQ+", "veterans":"Veterans" };
+
+const el = (tag, attrs = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  for (const k of kids) n.append(k);
+  return n;
+};
+
+function contactLink(c) {
+  const label = c.display || c.value;
+  if (c.type === "phone") return el("a", { href: "tel:" + c.value }, "Call " + label);
+  if (c.type === "sms") {
+    const body = c.keyword ? "?&body=" + encodeURIComponent(c.keyword) : "";
+    return el("a", { href: "sms:" + c.value + body, class: "secondary" }, c.display || "Text " + c.value);
+  }
+  if (c.type === "whatsapp") return el("a", { href: "https://wa.me/" + c.value.replace("+", ""), class: "secondary" }, "WhatsApp " + label);
+  if (c.type === "chat") return el("a", { href: c.value, class: "secondary", rel: "noopener" }, "Chat online");
+  if (c.type === "email") return el("a", { href: "mailto:" + c.value, class: "secondary" }, "Email");
+  return el("span", {}, label);
+}
+
+function render(country) {
+  const out = document.getElementById("results");
+  out.replaceChildren();
+  const danger = document.getElementById("danger");
+  const em = (country.emergency || []).map(e => e.number);
+  danger.textContent = em.length
+    ? `If you or someone else is in immediate danger, call ${em.join(" or ")} now.`
+    : "If you or someone else is in immediate danger, call your local emergency number now.";
+  if (!country.helplines.length) {
+    out.append(el("p", { class: "empty" }, "No helplines listed yet for this country. ",
+      el("a", { href: "https://github.com/mpatel-playground/open-helplines/blob/main/CONTRIBUTING.md" }, "Help add them.")));
+    return;
+  }
+  for (const h of country.helplines) {
+    const hours = h.availability === "24/7" ? "24/7" : (h.availability === "limited" ? "Limited hours" : "Hours not confirmed");
+    const cost = h.cost === "free" ? " · Free" : "";
+    const tags = el("div");
+    for (const c of h.categories) tags.append(el("span", { class: "tag" }, CATEGORY_LABELS[c] || c));
+    const actions = el("div", { class: "actions" }, ...h.contacts.map(contactLink));
+    const src = h.sources[0];
+    const status = h.status === "verified" ? "Verified by 2+ sources" : "Single source";
+    const meta = el("p", { class: "meta" }, `${hours}${cost} · ${status}, checked ${h.last_verified} · `,
+      el("a", { href: src.url, rel: "noopener" }, "source"));
+    out.append(el("article", { class: "card" }, el("h2", {}, h.name), tags, meta, actions));
+  }
+}
+
+(async () => {
+  const sel = document.getElementById("country");
+  try {
+    const res = await fetch("v1/all.json");
+    const data = await res.json();
+    const countries = Object.values(data.countries).sort((a, b) => a.name.localeCompare(b.name));
+    sel.replaceChildren(...countries.map(c => el("option", { value: c.country }, c.name)));
+    const guess = (navigator.language || "").split("-")[1];
+    const initial = new URLSearchParams(location.search).get("country") || guess;
+    if (initial && data.countries[initial.toUpperCase()]) sel.value = initial.toUpperCase();
+    const show = () => render(data.countries[sel.value]);
+    sel.addEventListener("change", () => { history.replaceState(null, "", "?country=" + sel.value); show(); });
+    show();
+  } catch (e) {
+    sel.replaceChildren(el("option", {}, "Could not load data"));
+  }
+})();
+</script>
+</body>
+</html>

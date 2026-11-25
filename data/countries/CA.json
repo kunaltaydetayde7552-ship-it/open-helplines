@@ -1,0 +1,29 @@
+{
+  "country": "CA",
+  "name": "Canada",
+  "emergency": [],
+  "helplines": [
+    {
+      "id": "ca-988-suicide-crisis-helpline",
+      "name": "9-8-8: Suicide Crisis Helpline",
+      "categories": ["suicide", "crisis"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "phone", "value": "988", "display": "9-8-8" }
+      ],
+      "availability": "unknown",
+      "cost": "unknown",
+      "website": "https://988.ca/",
+      "sources": [
+        {
+          "url": "https://988.ca/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "9-8-8: Suicide Crisis Helpline"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "country": "NZ",
+  "name": "New Zealand",
+  "emergency": [],
+  "helplines": [
+    {
+      "id": "nz-1737-need-to-talk",
+      "name": "1737",
+      "categories": [
+        "crisis",
+        "mental-health"
+      ],
+      "audiences": [
+        "everyone"
+      ],
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "1737",
+          "display": "1737"
+        },
+        {
+          "type": "sms",
+          "value": "1737",
+          "display": "Text 1737"
+        }
+      ],
+      "availability": "24/7",
+      "cost": "unknown",
+      "website": "https://1737.org.nz/",
+      "sources": [
+        {
+          "url": "https://1737.org.nz/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "support – 24/7. Call or text 1737 for brief emotional support"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    }
+  ]
+}

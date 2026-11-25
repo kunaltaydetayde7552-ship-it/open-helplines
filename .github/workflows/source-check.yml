@@ -1,0 +1,32 @@
+name: Weekly source check
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Re-fetch every source
+        id: check
+        continue-on-error: true
+        run: python3 scripts/check_sources.py --markdown report.md
+      - name: Open or update the tracking issue
+        if: steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Weekly source check: entries need a human look"
+          { cat report.md; echo; echo "_Automated. A failure can mean a site blocks bots or renders with JavaScript; please check by hand and comment what you find._"; } > body.md
+          existing=$(gh issue list --state open --label needs-recheck --search "in:title \"$title\"" --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file body.md
+          else
+            gh issue create --title "$title" --label needs-recheck --body-file body.md
+          fi

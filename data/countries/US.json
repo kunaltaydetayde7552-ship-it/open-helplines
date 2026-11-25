@@ -1,0 +1,86 @@
+{
+  "country": "US",
+  "name": "United States",
+  "emergency": [
+    {
+      "number": "911",
+      "sources": [
+        {
+          "url": "https://www.911.gov/",
+          "type": "government",
+          "accessed": "2026-11-24",
+          "quote": "911"
+        }
+      ]
+    }
+  ],
+  "helplines": [
+    {
+      "id": "us-988-lifeline",
+      "name": "988 Suicide & Crisis Lifeline",
+      "categories": ["suicide", "mental-health", "crisis"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "phone", "value": "988", "display": "988" }
+      ],
+      "availability": "24/7",
+      "cost": "free",
+      "website": "https://988lifeline.org/",
+      "sources": [
+        {
+          "url": "https://988lifeline.org/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "The 988 Lifeline is available 24/7/365."
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    },
+    {
+      "id": "us-crisis-text-line",
+      "name": "Crisis Text Line",
+      "categories": ["crisis", "mental-health"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "sms", "value": "741741", "keyword": "HOME", "display": "Text HOME to 741741" }
+      ],
+      "availability": "24/7",
+      "cost": "free",
+      "website": "https://www.crisistextline.org/",
+      "sources": [
+        {
+          "url": "https://www.crisistextline.org/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "Text HOME to 741741 for free, 24/7 confidential"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    },
+    {
+      "id": "us-national-domestic-violence-hotline",
+      "name": "National Domestic Violence Hotline",
+      "categories": ["domestic-violence"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "phone", "value": "18007997233", "display": "1-800-799-7233" },
+        { "type": "sms", "value": "88788", "keyword": "START", "display": "Text START to 88788" }
+      ],
+      "availability": "24/7",
+      "cost": "free",
+      "website": "https://www.thehotline.org/",
+      "sources": [
+        {
+          "url": "https://www.thehotline.org/",
+          "type": "operator",
+          "accessed": "2026-11-24",
+          "quote": "1.800.799.7233 ... Free. Confidential. 24/7. ... Text START to 88788"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24"
+    }
+  ]
+}

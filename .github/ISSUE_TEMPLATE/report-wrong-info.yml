@@ -1,0 +1,24 @@
+name: Report a wrong or dead number
+description: A listed number is wrong, disconnected, or reaches the wrong service. Treated as urgent.
+title: "[Wrong info] <country>: <helpline name>"
+labels: ["urgent", "needs-recheck"]
+body:
+  - type: input
+    id: country
+    attributes: { label: Country, placeholder: "e.g. GB" }
+    validations: { required: true }
+  - type: input
+    id: entry
+    attributes: { label: Helpline name or id, placeholder: "e.g. gb-samaritans" }
+    validations: { required: true }
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong?
+      description: Wrong digits, disconnected, different hours, reaches something unrelated...
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How do you know?
+      description: A link to the official page with the correct info is ideal.

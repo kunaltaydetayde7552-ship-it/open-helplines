@@ -1,0 +1,15 @@
+name: Add or update a country
+description: Propose helplines for a country (you can also just open a PR).
+title: "Add helplines: <country>"
+labels: ["country-data"]
+body:
+  - type: input
+    id: country
+    attributes: { label: Country (ISO code if you know it), placeholder: "e.g. BR" }
+    validations: { required: true }
+  - type: textarea
+    id: lines
+    attributes:
+      label: Helplines and sources
+      description: Name, number, and the official link where you saw it, for each line.
+    validations: { required: true }

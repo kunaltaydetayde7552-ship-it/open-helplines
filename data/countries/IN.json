@@ -1,0 +1,30 @@
+{
+  "country": "IN",
+  "name": "India",
+  "emergency": [],
+  "helplines": [
+    {
+      "id": "in-tele-manas",
+      "name": "Tele-MANAS (Ministry of Health and Family Welfare)",
+      "categories": ["mental-health", "crisis"],
+      "audiences": ["everyone"],
+      "contacts": [
+        { "type": "phone", "value": "14416", "display": "14416" }
+      ],
+      "availability": "unknown",
+      "cost": "unknown",
+      "website": "https://telemanas.mohfw.gov.in/",
+      "sources": [
+        {
+          "url": "https://telemanas.mohfw.gov.in/",
+          "type": "government",
+          "accessed": "2026-11-24",
+          "quote": "14416"
+        }
+      ],
+      "status": "provisional",
+      "last_verified": "2026-11-24",
+      "notes": "Official site renders with JavaScript; the number appears in its bundled content. Needs a second, human-readable source."
+    }
+  ]
+}
