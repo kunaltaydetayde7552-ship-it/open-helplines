@@ -183,7 +183,7 @@ def render_badge_json(countries_count, helplines_count, verified_count):
     """Render a Shields.io endpoint schema v1 JSON badge payload."""
     color_name, _ = _badge_color(helplines_count, verified_count)
     payload = {
-        "schemaVersion": SCHEMA_VERSION,
+        "schemaVersion": 1,
         "label": "helplines",
         "message": _format_badge_message(countries_count, helplines_count, verified_count),
         "color": color_name,

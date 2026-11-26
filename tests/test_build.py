@@ -216,6 +216,11 @@ class RenderCoverageBadgeTests(unittest.TestCase):
         self.assertEqual(verified_payload["color"], "brightgreen")
         self.assertEqual(verified_payload["message"], "1 country · 3 helplines (3 verified)")
 
+    def test_badge_json_hardcodes_shields_schema_version_1(self):
+        with mock.patch.object(build, "SCHEMA_VERSION", 2):
+            payload = json.loads(build.render_badge_json(5, 10, 5))
+            self.assertEqual(payload["schemaVersion"], 1)
+
 
 class BuildMainIntegrationTests(unittest.TestCase):
     def test_build_main_on_repository_data(self):
